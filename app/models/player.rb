@@ -5,11 +5,19 @@ class Player
     @kill_by_player = {}
   end
 
-  def increment!(name)
-    @kill_by_player[name] = @kill_by_player[name].nil? ? 1 : increment_kill!(name)
+  def set_name(name)
+    @kill_by_player[name] = 0
   end
 
-  def get_names
+  def increment!(name)
+    @kill_by_player[name] = increment_kill!(name)
+  end
+
+  def decrement!(name)
+    @kill_by_player[name] = decrement_kill!(name)
+  end
+
+  def names
     @kill_by_player.keys
   end
 
@@ -17,8 +25,16 @@ class Player
     line.include?('ClientUserinfoChanged')
   end
 
+  def kills_by_player
+    @kill_by_player
+  end
+
   private
   def increment_kill!(name)
     @kill_by_player[name] = @kill_by_player[name] + 1
+  end
+
+  def decrement_kill!(name)
+    @kill_by_player[name] = @kill_by_player[name] - 1
   end
 end
