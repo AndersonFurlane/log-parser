@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root 'parse#index'
+  root 'parse#run'
 end

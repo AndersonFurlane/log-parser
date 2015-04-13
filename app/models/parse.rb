@@ -1,28 +1,42 @@
 class Parse
-
   def initialize
     @DASH = '------------------------------------------------------------'
-    @KILLER_WORLD = '<world>'
+    @WORLD_KILLER = '<world>'
+    @reports = { }
     @games = Game.new
-    @kills = Kill.new
-    @players = Player.new
+    @rank = Rank.new
   end
 
   def run!
     file = File.read(Rails.public_path.join('games.log'))
     games = file.split(@DASH)
     games.each do |game|
+      class_intance
       next unless @games.valid?(game)
       @games.increment!
       game.each_line do |line|
         add_player(line) if @players.valid?(line)
         add_kill(line) if @kills.valid?(line)
       end
+      add_game
     end
-    show_console
+    report
   end
 
   private
+
+  def report
+    {
+      'ranking' => @rank.create(@reports),
+      'games' => @reports
+    }
+  end
+
+  def class_intance
+    @kills = Kill.new
+    @players = Player.new
+  end
+
   def parse_name_player(line)
     line.split('\\')[1]
   end
@@ -34,7 +48,7 @@ class Parse
 
   def parse_killer(line)
     killer = line.split('killed')[0].strip
-    killer.split(' ')[5]
+    killer.include?(@WORLD_KILLER) ? @WORLD_KILLER : killer.split(':')[3].strip
   end
 
   def add_player(line)
@@ -46,7 +60,7 @@ class Parse
     @kills.increment!
     killer = parse_killer(line)
 
-    if killer == @KILLER_WORLD
+    if killer == @WORLD_KILLER
       killed = parse_killed(line)
       @players.decrement!(killed)
     else
@@ -54,11 +68,12 @@ class Parse
     end
   end
 
-  def show_console
-    @games.count.times{ |i| puts "games_#{ i + 1 }" }
-    puts "total_kills: #{ @kills.count }"
-    puts "players: #{ @players.names }"
-    puts @players.kills_by_player
-    end
+  def add_game
+    @reports["game_#{ @games.count }"] =
+      {
+        'total_kills' => @kills.count,
+        'players' => @players.names,
+        'kills' => @players.kills_by_player
+      }
   end
 end

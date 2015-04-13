@@ -1,13 +1,13 @@
 class ParseController < ApplicationController
-  before_filter :create_parse
+  before_filter :parse
 
-  def index
-
-    @json = @parse.run!
+  def run
+    render json: @report
   end
 
   private
-  def create_parse
-    @parse = Parse.new
+  def parse
+    parse = Parse.new
+    @report = parse.run!
   end
 end

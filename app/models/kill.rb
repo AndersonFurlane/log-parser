@@ -14,6 +14,6 @@ class Kill
   end
 
   def valid?(line)
-    line.include?('kill')
+    line.include?('Kill:')
   end
 end
