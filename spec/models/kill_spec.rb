@@ -21,11 +21,15 @@ describe Kill do
     expect(@kill.count).to eq(6)
   end
 
-  it 'valid?' do
-    line_valid = '21:42 Kill: 1022 2 22: <world> killed Isgalamido by '
-    line_invalid = '21:42 : 1022 2 22: <world> killed Isgalamido by '
+  describe 'method valid' do
+    it 'valid' do
+      line_valid = '21:42 Kill: 1022 2 22: <world> killed Isgalamido by'
+      expect(@kill.valid?(line_valid)).to eq(true)
+    end
 
-    expect(@kill.valid?(line_valid)).to eq(true)
-    expect(@kill.valid?(line_invalid)).to eq(false)
+    it 'invalid' do
+      line_invalid = '21:42 : 1022 2 22: <world> killed Isgalamido by'
+      expect(@kill.valid?(line_invalid)).to eq(false)
+    end
   end
 end
