@@ -1,33 +1,35 @@
 require 'spec_helper'
 
 describe Game do
-  before(:all) do
+  before(:each) do
     @game = Game.new
   end
 
-  it 'initialize' do
-    expect(@game.count).to eq(0)
-  end
-
-  it 'increment!' do
+  it 'when increment method is call sum one' do
     expect(@game.count).to eq(0)
     @game.increment!
     expect(@game.count).to eq(1)
   end
 
-  it 'count' do
-    expect(@game.count).to eq(1)
-    5.times{ @game.increment! }
-    expect(@game.count).to eq(6)
+  describe '#count' do
+    it 'is zero to initialize' do
+      expect(@game.count).to eq(0)
+    end
+
+    it 'count is six' do
+      expect(@game.count).to eq(0)
+      5.times{ @game.increment! }
+      expect(@game.count).to eq(5)
+    end
   end
 
-  describe 'method valid' do
-    it 'valid' do
+  describe '#valid?' do
+    it 'is valid when line have InitGame' do
       line_valid = '0:00 InitGame: \sv_floodProtect\1\sv_maxPing\0\sv_minPing\0\sv_maxRate\10000'
       expect(@game.valid?(line_valid)).to eq(true)
     end
 
-    it 'invalid' do
+    it 'is invalid when line don`t have InitGame' do
       line_invalid = '0:00 : \sv_floodProtect\1\sv_maxPing\0\sv_minPing\0\sv_maxRate\10000'
       expect(@game.valid?(line_invalid)).to eq(false)
     end

@@ -5,46 +5,54 @@ describe Kill do
     @kill = Kill.new
   end
 
-  it 'initialize' do
-    expect(@kill.count).to eq(0)
+  describe '#increment!' do
+    it 'is count increment' do
+      expect(@kill.count).to eq(0)
+      @kill.increment!
+      expect(@kill.count).to eq(1)
+    end
   end
 
-  it 'increment!' do
-    expect(@kill.count).to eq(0)
-    @kill.increment!
-    expect(@kill.count).to eq(1)
+  describe '#count' do
+    before(:all) do
+      @kill = Kill.new
+    end
+
+    it 'count is zero when to initialize' do
+      expect(@kill.count).to eq(0)
+    end
+
+    it 'count is six' do
+      expect(@kill.count).to eq(0)
+      5.times{ @kill.increment! }
+      expect(@kill.count).to eq(5)
+    end
   end
 
-  it 'count' do
-    expect(@kill.count).to eq(1)
-    5.times{ @kill.increment! }
-    expect(@kill.count).to eq(6)
-  end
-
-  describe 'method valid' do
-    it 'valid' do
+  describe '#valid?' do
+    it 'line is valid' do
       line_valid = '21:42 Kill: 1022 2 22: <world> killed Isgalamido by'
       expect(@kill.valid?(line_valid)).to eq(true)
     end
 
-    it 'invalid' do
+    it 'line is invalid' do
       line_invalid = '21:42 : 1022 2 22: <world> killed Isgalamido by'
       expect(@kill.valid?(line_invalid)).to eq(false)
     end
   end
 
-  describe 'account_kills' do
+  describe '#account_kills' do
     before(:all) do
       @player = Player.new
       @player.set_name(SupportKill.player_parse_name)
     end
 
-    it 'player killer' do
+    it 'when player kill increment one kill' do
       @kill.account_kills(SupportKill.line_player_killer, @player)
       expect(@player.kills_by_player).to eq(SupportKill.kills(1))
     end
 
-    it 'world killer' do
+    it 'when world kill decrement one kill' do
       @kill.account_kills(SupportKill.line_world_killer, @player)
       expect(@player.kills_by_player).to eq(SupportKill.kills(0))
     end
