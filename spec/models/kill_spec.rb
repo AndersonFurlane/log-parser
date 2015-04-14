@@ -32,4 +32,21 @@ describe Kill do
       expect(@kill.valid?(line_invalid)).to eq(false)
     end
   end
+
+  describe 'account_kills' do
+    before(:all) do
+      @player = Player.new
+      @player.set_name(SupportKill.player_parse_name)
+    end
+
+    it 'player killer' do
+      @kill.account_kills(SupportKill.line_player_killer, @player)
+      expect(@player.kills_by_player).to eq(SupportKill.kills(1))
+    end
+
+    it 'world killer' do
+      @kill.account_kills(SupportKill.line_world_killer, @player)
+      expect(@player.kills_by_player).to eq(SupportKill.kills(0))
+    end
+  end
 end

@@ -8,6 +8,7 @@ class ParseController < ApplicationController
   private
   def parse
     parse = Parse.new
-    @report = parse.run!
+    log = Rails.public_path.join('games.log')
+    @report = parse.run!(log)
   end
 end

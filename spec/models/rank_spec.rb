@@ -2,22 +2,21 @@ require 'spec_helper'
 
 describe Rank do
   before(:all) do
-    list = []
-    games = {}
-    kills = {}
     @rank = Rank.new
-
-    (1..3).to_a.each do |i|
-      p 'i', i
-      kills['kills'] = { "Test_#{ i }" => 1 }
-      games["game_#{ i }"] = kills
-    end
-    @games = games
+    @ranking = @rank.create(SupportRank.games_fake)
   end
 
-  it 'x' do
-    p @games
-    ranking = @rank.create(@games)
-    expect(ranking).to eq({ "Test_3"=>3, "Tes_2"=>2, "Test_1"=>1 })
+  it 'create' do
+    expect(@ranking).to eq(SupportRank.result)
+  end
+
+  describe 'method exist?' do
+    it 'exist' do
+      expect(@rank.exist?(SupportRank.player_exist)).to eq(true)
+    end
+
+    it 'no exist' do
+      expect(@rank.exist?(SupportRank.player_no_exist)).to eq(false)
+    end
   end
 end

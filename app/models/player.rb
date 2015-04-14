@@ -5,16 +5,17 @@ class Player
     @kill_by_player = {}
   end
 
-  def set_name(name)
+  def set_name(line)
+    name = parse_name(line)
     @kill_by_player[name] = 0
   end
 
   def increment!(name)
-    @kill_by_player[name] = increment_kill!(name)
+    @kill_by_player[name] = @kill_by_player[name] + 1
   end
 
   def decrement!(name)
-    @kill_by_player[name] = decrement_kill!(name)
+    @kill_by_player[name] = @kill_by_player[name] - 1
   end
 
   def names
@@ -30,11 +31,7 @@ class Player
   end
 
   private
-  def increment_kill!(name)
-    @kill_by_player[name] = @kill_by_player[name] + 1
-  end
-
-  def decrement_kill!(name)
-    @kill_by_player[name] = @kill_by_player[name] - 1
+  def parse_name(line)
+    line.split('\\')[1]
   end
 end

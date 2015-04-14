@@ -14,11 +14,11 @@ class Rank
     order_by_kills
   end
 
-  private
   def exist?(player)
     @rank.has_key?(player)
   end
 
+  private
   def sum_kills(player)
     @rank[player[0]] += player[1]
   end
