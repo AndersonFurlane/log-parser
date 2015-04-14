@@ -17,8 +17,8 @@
 * Solução
   - Foi feito o parse do log e retorna um JSON com o ranking e as informações dos jogos.
   - O parse ficou sobre a responsabilidade do model que e dividido em 5 modelos:
-  - Game.rb: é responsável por validar a se a linha do log é um início de jogo e pela contagem dos games.
-  - Kill.rb: é responsável por validar se a linha do log é um killer ou killed e também e responsável pela logica de morte (Ex: quando um player morre para o world).
-  - Parse.rb: é responsável pelo parse e pelo relatório final do parse.
-  - Player.rb: é responsável por validar, adicionar, mostrar e fazer o parse dos nomes dos jogadores, mas também pelo adicionar/remover pontos (kills) de um jogador.
- - Rank.rb: é responsável por gerar o relatório com o parse do log dividido em dois: ranking e games.
+    - Game.rb: é responsável por validar a se a linha do log é um início de jogo e pela contagem dos games.
+    - Kill.rb: é responsável por validar se a linha do log é um killer ou killed e também e responsável pela logica de morte (Ex: quando um player morre para o world).
+    - Parse.rb: é responsável pelo parse e pelo relatório final do parse.
+    - Player.rb: é responsável por validar, adicionar, mostrar e fazer o parse dos nomes dos jogadores, mas também pelo adicionar/remover pontos (kills) de um jogador.
+    - Rank.rb: é responsável por gerar o relatório com o parse do log dividido em dois: ranking e games.
