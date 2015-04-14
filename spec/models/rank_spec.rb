@@ -6,16 +6,16 @@ describe Rank do
     @ranking = @rank.create(SupportRank.games_fake)
   end
 
-  it 'create' do
+  it 'ranking is equal result' do
     expect(@ranking).to eq(SupportRank.result)
   end
 
-  describe 'method exist?' do
-    it 'exist' do
+  describe '#exist?' do
+    it 'is exist' do
       expect(@rank.exist?(SupportRank.player_exist)).to eq(true)
     end
 
-    it 'no exist' do
+    it "isn't exist" do
       expect(@rank.exist?(SupportRank.player_no_exist)).to eq(false)
     end
   end
