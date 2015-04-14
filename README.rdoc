@@ -1,28 +1,24 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Inicial
+ - ruby-2.1.1
+ - 'rails', '4.1.7'
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Setup
+  - bundle
+  - Checar se o games.log está na pasta public
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Acessando o parse
+  - http://localhost:3000 - acessa um json com o parse do log
+
+---
+
+* Solução
+  - Foi feito o parse do log e retorna um JSON com o ranking e as informações dos jogos.
+  - O parse ficou sobre a responsabilidade do model que e dividido em 5 modelos:
+  - Game.rb: é responsável por validar a se a linha do log é um início de jogo e pela contagem dos games.
+  - Kill.rb: é responsável por validar se a linha do log é um killer ou killed e também e responsável pela logica de morte (Ex: quando um player morre para o world).
+  - Parse.rb: é responsável pelo parse e pelo relatório final do parse.
+  - Player.rb: é responsável por validar, adicionar, mostrar e fazer o parse dos nomes dos jogadores, mas também pelo adicionar/remover pontos (kills) de um jogador.
+ - Rank.rb: é responsável por gerar o relatório com o parse do log dividido em dois: ranking e games.
